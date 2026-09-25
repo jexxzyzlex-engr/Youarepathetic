@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Youaretheonlyone",
+      "hasCanvas": false,
+      "bodyTextLen": 316,
+      "bodyTextHash": "ab1830e2f3f4b29c8fbf17a884f10a2611691fe2eddd856f0a1d826f0ee7f836",
+      "bodyTextPrefix": "XII I II III IV V VI VII VIII IX X XI WORLD TIME 13:50:07UTC 13:",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Youaretheonlyone",
+      "hasCanvas": false,
+      "bodyTextLen": 316,
+      "bodyTextHash": "9950f3b2cd2f1f6cb813fa6f9d6d1b52f23d85c8e384de8055ddeecb30bbe5ea",
+      "bodyTextPrefix": "XII I II III IV V VI VII VIII IX X XI WORLD TIME 13:50:09UTC 13:",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

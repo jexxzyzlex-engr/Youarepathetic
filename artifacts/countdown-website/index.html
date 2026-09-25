@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Have i failed?</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@500&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0a0a0f;
+      --card: #12121a;
+      --accent: #7c5cff;
+      --accent-glow: rgba(124, 92, 255, 0.35);
+      --text: #f0f0f5;
+      --muted: #8b8b9e;
+      --border: #1e1e2a;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Subtle animated background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(124, 92, 255, 0.18), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(56, 189, 248, 0.08), transparent);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #fff 0%, #c4b5fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.05rem;
+      font-weight: 300;
+      margin-bottom: 3rem;
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .countdown {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.85rem;
+      }
+    }
+
+    .unit {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem 1rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .unit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px var(--accent-glow);
+      border-color: rgba(124, 92, 255, 0.4);
+    }
+
+    .unit::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.7;
+    }
+
+    .number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(2.2rem, 8vw, 3.5rem);
+      font-weight: 500;
+      line-height: 1.1;
+      color: var(--text);
+      letter-spacing: -0.03em;
+    }
+
+    .unit-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.6rem;
+    }
+
+    .target-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(124, 92, 255, 0.1);
+      border: 1px solid rgba(124, 92, 255, 0.25);
+      border-radius: 999px;
+      padding: 0.55rem 1.25rem;
+      font-size: 0.9rem;
+      color: #c4b5fd;
+      margin-bottom: 2rem;
+    }
+
+    .target-date svg {
+      width: 16px;
+      height: 16px;
+      opacity: 0.8;
+    }
+
+    .progress-section {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto 2rem;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #7c5cff, #38bdf8);
+      border-radius: 999px;
+      width: 0%;
+      transition: width 1s ease;
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: #a78bfa;
+      text-decoration: none;
+    }
+
+    /* Pulse animation for the final second */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    .number.updating {
+      animation: pulse 0.4s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p class="label">Live Countdown</p>
+    <h1>Have i failed?</h1>
+    <p class="subtitle">Time remaining until September 24, 2032</p>
+
+    <div class="target-date">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+      <span id="target-display">September 24, 2032</span>
+    </div>
+
+    <div class="countdown" id="countdown">
+      <div class="unit">
+        <div class="number" id="days">0</div>
+        <div class="unit-label">Days</div>
+      </div>
+      <div class="unit">
+        <div class="number" id="hours">0</div>
+        <div class="unit-label">Hours</div>
+      </div>
+      <div class="unit">
+        <div class="number" id="minutes">0</div>
+        <div class="unit-label">Minutes</div>
+      </div>
+      <div class="unit">
+        <div class="number" id="seconds">0</div>
+        <div class="unit-label">Seconds</div>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div class="progress-label">
+        <span>Progress</span>
+        <span id="percent">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Countdown started from September 24, 2026
+  </footer>
+
+  <script>
+    // Target: exactly 6 years from Sept 24, 2026 21:14 PST → Sept 24, 2032
+    // Using local time for simplicity; date set to end of day for clean countdown
+    const TARGET = new Date('2032-09-24T21:14:00').getTime();
+    const START  = new Date('2026-09-24T21:14:00').getTime();
+    const TOTAL  = TARGET - START; // total milliseconds in 6 years
+
+    function pad(n) {
+      return n.toString().padStart(2, '0');
+    }
+
+    function update() {
+      const now = Date.now();
+      let diff = TARGET - now;
+
+      if (diff <= 0) {
+        document.getElementById('days').textContent = '0';
+        document.getElementById('hours').textContent = '00';
+        document.getElementById('minutes').textContent = '00';
+        document.getElementById('seconds').textContent = '00';
+        document.getElementById('percent').textContent = '100%';
+        document.getElementById('progress').style.width = '100%';
+        return;
+      }
+
+      const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      // Update numbers with a subtle pulse on seconds
+      const secEl = document.getElementById('seconds');
+      secEl.classList.remove('updating');
+      void secEl.offsetWidth; // reflow
+      secEl.classList.add('updating');
+
+      document.getElementById('days').textContent = days.toLocaleString();
+      document.getElementById('hours').textContent = pad(hours);
+      document.getElementById('minutes').textContent = pad(minutes);
+      document.getElementById('seconds').textContent = pad(seconds);
+
+      // Progress percentage
+      const elapsed = now - START;
+      const pct = Math.min(100, Math.max(0, (elapsed / TOTAL) * 100));
+      document.getElementById('percent').textContent = pct.toFixed(2) + '%';
+      document.getElementById('progress').style.width = pct + '%';
+    }
+
+    // Initial run + every second
+    update();
+    setInterval(update, 1000);
+  </script>
+</body>
+</html>

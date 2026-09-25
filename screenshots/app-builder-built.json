@@ -1,0 +1,38 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Youaretheonlyone",
+      "hasCanvas": false,
+      "bodyTextLen": 280,
+      "bodyTextHash": "a6bc3089bffaeeafab4ca4f6a103b344c5fe68c9d509ea50fc5027265d9dceab",
+      "bodyTextPrefix": "XII I II III IV V VI VII VIII IX X XI LIVE COUNTDOWN Have i fail",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Youaretheonlyone",
+      "hasCanvas": false,
+      "bodyTextLen": 280,
+      "bodyTextHash": "f9ac977dafdeb913e62f41df2e1d270943591b164368e708725c3abb0753c4bb",
+      "bodyTextPrefix": "XII I II III IV V VI VII VIII IX X XI LIVE COUNTDOWN Have i fail",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": false,
+  "baselineReasons": []
+}
